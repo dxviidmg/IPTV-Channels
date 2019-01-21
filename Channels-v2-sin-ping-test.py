@@ -19,16 +19,21 @@ print("Loading lists...")
 
 lists_of_channels_files = []
 file = open("channel_list.txt", "r")
-for line in file:
+for url in file:
 #        print(line)
-        if line.startswith('#') is False:
-                lists_of_channels_files.append(line)
+        if url.startswith('#') is False:
+                try:
+                        urlopen(url)
+                        lists_of_channels_files.append(url)
+                        print(url)
+                except:
+                        pass
 
 #print(lists_of_channels_files)
 
 for list_of_channels in lists_of_channels_files:
         channels_raw = urlopen(list_of_channels)
-        print(".", end="")
+#        print(".", end="")
 
         #Extrayendo informacion de archivo
         for channel_raw in channels_raw:
@@ -84,7 +89,7 @@ counter_2 = 0
 print("\n")
 
 date_string = datetime.strftime(datetime.now(), '%d-%m-%Y-%H-%M-%S')
-f= open("Channels clean of " + date_string + ".txt","w+")
+f= open("Channels of " + date_string + ".txt","w+")
 
 for channel in final_channels_sorted:
         counter_2=counter_2+1
@@ -92,14 +97,13 @@ for channel in final_channels_sorted:
 #        print(counter_2)
 #        print('Name:', channel['name'])
 #        print('Link:', channel['link'])
-        f.write("Number: %s\r\n" % counter_2)
-        f.write("Name: %s\r\n" % channel['name'])
-        f.write("Link: %s\r\n" % channel['link'])
+        f.write("Number: %s\r" % counter_2)
+        f.write("Name: %s\r" % channel['name'])
+        f.write("Link: %s\r" % channel['link'])
 f.close()
 
 tf =time.time()
 print("Quantity: ", len(final_channels_sorted))
 print("Execution time", (tf-ti)/60, 'min.')
 print("process finished!!!")
-
-
+#exit(0)
