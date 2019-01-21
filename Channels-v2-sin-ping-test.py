@@ -3,7 +3,7 @@ import re
 from operator import itemgetter
 import time
 from datetime import datetime
-
+import os
 list_channels_string = ""
 
 #lists_of_channels_files2 = ['http://tecnotv.xyz/lista.m3u', 'http://tecnotv.xyz/singeo.m3u', 'http://tecnotv.xyz/lista2.m3u', 'http://tecnotv.xyz/esp.m3u', 'http://tecnotv.xyz/kids.m3u']
@@ -20,14 +20,16 @@ print("Loading lists...")
 lists_of_channels_files = []
 file = open("channel_list.txt", "r")
 for url in file:
-#        print(line)
+#        print(url)
         if url.startswith('#') is False:
+#                print(url)
                 try:
                         urlopen(url)
                         lists_of_channels_files.append(url)
-                        print(url)
+                        print("successful connection:", url)
                 except:
                         pass
+                        print("unsuccessful connection:", url)
 
 #print(lists_of_channels_files)
 
@@ -105,5 +107,4 @@ f.close()
 tf =time.time()
 print("Quantity: ", len(final_channels_sorted))
 print("Execution time", (tf-ti)/60, 'min.')
-print("process finished!!!")
-#exit(0)
+os.system("pause")
